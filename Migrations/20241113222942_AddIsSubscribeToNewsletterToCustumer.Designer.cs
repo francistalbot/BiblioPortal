@@ -4,6 +4,7 @@ using BiblioPortal.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiblioPortal.Migrations
 {
     [DbContext(typeof(BiblioDbContext))]
-    partial class BiblioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241113222942_AddIsSubscribeToNewsletterToCustumer")]
+    partial class AddIsSubscribeToNewsletterToCustumer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,9 +42,6 @@ namespace BiblioPortal.Migrations
                     b.Property<bool>("IsSubscribeToNewsletter")
                         .HasColumnType("bit");
 
-                    b.Property<byte>("MembershipTypeId")
-                        .HasColumnType("tinyint");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -49,8 +49,6 @@ namespace BiblioPortal.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MembershipTypeId");
 
                     b.ToTable("Clients");
                 });
@@ -76,25 +74,6 @@ namespace BiblioPortal.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("BiblioPortal.Models.MembershipType", b =>
-                {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("DiscountRate")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("DurationInMonths")
-                        .HasColumnType("tinyint");
-
-                    b.Property<short>("SignUpFee")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MembershipType");
-                });
-
             modelBuilder.Entity("BiblioPortal.Models.Outil", b =>
                 {
                     b.Property<int>("Id")
@@ -112,17 +91,6 @@ namespace BiblioPortal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Outils");
-                });
-
-            modelBuilder.Entity("BiblioPortal.Models.Client", b =>
-                {
-                    b.HasOne("BiblioPortal.Models.MembershipType", "MembershipType")
-                        .WithMany()
-                        .HasForeignKey("MembershipTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MembershipType");
                 });
 
             modelBuilder.Entity("BiblioPortal.Models.Location", b =>
