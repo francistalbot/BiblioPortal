@@ -1,4 +1,6 @@
-﻿namespace BiblioPortal.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BiblioPortal.Models
 {
     public class Client
     {
@@ -7,6 +9,8 @@
             Locations = new HashSet<Location>();
         }
         public int Id { get; set; }
+        [Required]
+        [StringLength(255)]
         public string? Name { get; set; }
         public string? DateOfBirth { get; set; }
         public string? Email { get; set; }
