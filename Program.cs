@@ -1,7 +1,11 @@
+using BiblioPortal.Models;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<BiblioDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:BiblioDbContextConnection"]));
 
 var app = builder.Build();
 

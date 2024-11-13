@@ -1,4 +1,5 @@
-﻿using BiblioPortal.Models;
+﻿
+using BiblioPortal.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioPortal.Controllers
@@ -8,7 +9,7 @@ namespace BiblioPortal.Controllers
         //GET: Outils/Random
         public IActionResult Random()
         {
-            var outil = new Outil() { Name = "Marteau" };
+            var outil = new Outil() { name = "Marteau" };
 
             return View(outil);
         }
