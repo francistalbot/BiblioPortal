@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Outil>
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Outils</h2>
+<table>
+    <tbody>
+        @foreach (var outil in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(outil.name, "Detail", "Outils",new { id = outil.Id},null)  </td>
+            </tr>
+        }
+    </tbody>

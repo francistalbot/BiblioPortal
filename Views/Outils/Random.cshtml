@@ -1,8 +1,27 @@
-﻿@model Outil
+﻿@model BiblioPortal.ViewModels.RandomOutilsViewModels
 @{
     ViewBag.Title = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Random</h2>
-<p>@Model.name</p>
+
+@{
+    var className = Model.Clients.Count > 0 ? "popular" : null;
+}
+<p class=@className>@Model.Outil.name</p>
+@if(Model.Clients.Count ==0)
+{
+    <text>Aucun client a loué cet outils</text>
+}
+else
+{
+<ul>
+    @foreach (var client in Model.Clients)
+    {
+        <li>@client.Name</li>
+    }
+
+</ul>
+    
+}

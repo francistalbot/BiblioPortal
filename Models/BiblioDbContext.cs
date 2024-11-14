@@ -7,6 +7,11 @@ namespace BiblioPortal.Models
         public DbSet<Client> Clients { get; set; }
         public DbSet<Location> Locations { get; set; }
         public BiblioDbContext(DbContextOptions<BiblioDbContext> options) : base(options) { }
+
+        public BiblioDbContext()
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
