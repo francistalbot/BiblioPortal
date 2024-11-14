@@ -17,7 +17,7 @@ namespace BiblioPortal.Controllers
         {
             _context.Dispose();
         }
-        public ActionResult Index(int? pageIndex, string sortBy)
+        public ActionResult Index()
         {
             var outils = _context.Outils;
             return View(outils);
