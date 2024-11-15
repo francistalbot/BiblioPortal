@@ -31,7 +31,7 @@ namespace BiblioPortal.Controllers
         //GET: Outils/Random
         public IActionResult Random()
         {
-            var outil = new Outil() { name = "Marteau" };
+            var outil = new Outil() { Name = "Marteau" };
             var clients = new List<Client>()
             {
                 new Client() { Id = 1, Name = "Francis"},
