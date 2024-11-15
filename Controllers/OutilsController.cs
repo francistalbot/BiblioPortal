@@ -25,8 +25,8 @@ namespace BiblioPortal.Controllers
 
         public ViewResult Details(int id)
         {
-            var outils = _context.Outils.SingleOrDefault(c => c.Id == id);
-            return View(outils);
+            var outil = _context.Outils.SingleOrDefault(c => c.Id == id);
+            return View(outil);
         }
         //GET: Outils/Random
         public IActionResult Random()
@@ -43,9 +43,6 @@ namespace BiblioPortal.Controllers
                 Outil = outil,
                 Clients = clients
             };
-            //var viewResult = new ViewResult();
-            //viewResult.ViewData.Model;
-
             return View(viewModel);
         }
         public ActionResult Edit(int id)
