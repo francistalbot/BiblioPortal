@@ -1,6 +1,8 @@
 ﻿@model Client
 
 <h2>@Model.Name</h2>
+@Html.ActionLink("Modifer", "Edit", "Clients", new { id = Model.Id }, 
+    new { @class = "btn btn-primary mb-3"}) 
 <ul>
     @if (!String.IsNullOrEmpty(Model.DateOfBirth))
     {
