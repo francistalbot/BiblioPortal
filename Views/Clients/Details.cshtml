@@ -1,0 +1,39 @@
+﻿@model Client
+
+<h2>@Model.Name</h2>
+<ul>
+    @if (!String.IsNullOrEmpty(Model.DateOfBirth))
+    {
+    <li>Date de Naissance: @Model.DateOfBirth</li>
+    }
+    @if (!String.IsNullOrEmpty(Model.Email))
+    {
+        <li>Adresse Email: @Model.Email</li>
+    }
+    @if (!String.IsNullOrEmpty(Model.MembershipType.Name))
+    {
+    <li>Type d'abonnemnt: @Model.MembershipType.Name</li>     
+    }
+    @if (Model.MembershipType.DiscountRate != null)
+    {
+    <li>Rabais : @Model.MembershipType.DiscountRate%</li>
+    }
+</ul>
+<h5>Locations : </h5>
+@if (Model.Locations == null || !Model.Locations.Any())
+{
+    <text>Aucun outils a été loué ce client</text>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        @foreach (var location in Model.Locations)
+        {
+            <tr>
+                <td>@location.OutilId</td>
+                <td>@location.Date</td>
+                <td>@Html.ActionLink(location.Outil.Name, "Details", "Outils", new { id = location.Outil.Id }, null)  </td
+            </tr>
+        }
+    </table>
+}
