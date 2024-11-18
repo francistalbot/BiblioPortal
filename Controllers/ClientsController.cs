@@ -21,7 +21,24 @@ namespace BiblioPortal.Controllers
             var clients = _context.Clients.Include(c => c.MembershipType);
             return View(clients);
         }
-        public ViewResult Details(int id)
+        public IActionResult New()
+        {
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new ClientFormViewModel 
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View("ClientForm", viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Client client) 
+        { 
+            _context.Clients.Add(client);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Clients"); 
+        }    
         {
             var client = _context.Clients
                 .Include(c => c.MembershipType)     //Inclut les MembershipType en Relation
