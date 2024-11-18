@@ -4,6 +4,7 @@ using BiblioPortal.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BiblioPortal.Migrations
 {
     [DbContext(typeof(BiblioDbContext))]
-    partial class BiblioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241118143225_updateMembershipTypeWithNameProperty")]
+    partial class updateMembershipTypeWithNameProperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +101,7 @@ namespace BiblioPortal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MembershipTypes");
+                    b.ToTable("MembershipType");
                 });
 
             modelBuilder.Entity("BiblioPortal.Models.Outil", b =>
