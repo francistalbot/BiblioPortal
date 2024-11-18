@@ -17,7 +17,8 @@ namespace BiblioPortal.Controllers
         }
         public IActionResult Index()
         {
-            var clients = _context.Clients;
+            //Generate elements of MembershipType linked to Clients
+            var clients = _context.Clients.Include(c => c.MembershipType);
             return View(clients);
         }
     }
