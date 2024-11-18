@@ -3,7 +3,10 @@
     ViewBag.Title = "ClientForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Formulaire Client</h2>
+<h2>
+    @(Model.Client.Id == 0 ? 
+    "Ajouter un client" : "Modifier un client")
+</h2>
 @using (Html.BeginForm("Save", "Clients"))
 {
     <div class="form-groupmb-3">

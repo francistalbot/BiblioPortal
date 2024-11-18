@@ -26,9 +26,10 @@ namespace BiblioPortal.Controllers
         public IActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
-            var viewModel = new ClientFormViewModel 
+            var viewModel = new ClientFormViewModel
             {
-                MembershipTypes = membershipTypes
+                MembershipTypes = membershipTypes,
+                Client = new Client(),
             };
             return View("ClientForm", viewModel);
         }
