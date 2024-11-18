@@ -1,6 +1,14 @@
 ﻿@model Outil
 
 <h2>@Model.Name</h2>
+@Html.ActionLink("Modifer", "Edit", "Outils", new { id = Model.Id }, 
+    new { @class = "btn btn-primary mb-3"}) 
+<ul>
+    @if (!String.IsNullOrEmpty(Model.Description))
+    {
+    <li>Description: @Model.Description</li>
+    }
+</ul>
 <h5>Locations : </h5>
 @if (Model.Locations == null || !Model.Locations.Any())
 {
@@ -14,7 +22,7 @@ else
             <tr>
                 <td>@location.ClientId</td>
                 <td>@location.Date</td>
-                <td>@Html.ActionLink(location.Client.Name, "Details", "Clients", new { id = location.Client.Id }, null)  </td
+                <td>@Html.ActionLink(location.Client.Name, "Details", "Clients", new { id = location.Client.Id }, null)  </td>
             </tr>
         }
     </table>

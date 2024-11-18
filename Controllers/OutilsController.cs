@@ -53,12 +53,36 @@ namespace BiblioPortal.Controllers
             };
             return View(viewModel);
         }
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
-            return Content("id="+id);
+            var outil = _context.Outils
+                .SingleOrDefault(c => c.Id == id);
+
+            if (outil == null)
+                return NotFound(); // Renvoie une erreur 404 si l'outil n'existe pas
+            return View("OutilForm", outil);
         }
-        
-          public ActionResult List(int? pageIndex, string sortBy)
+        public IActionResult New()
+        {
+            var outil = new Outil();
+            
+            return View("OutilForm", outil);
+        }
+        public IActionResult Save(Outil outil)
+        {
+            if (outil.Id == 0)
+                _context.Outils.Add(outil);
+            else
+            {
+                var outilInDb = _context.Outils.Single(c => c.Id == outil.Id);
+                outilInDb.Name = outil.Name;
+                outilInDb.Description = outil.Description;
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Outils");
+        }
+        public ActionResult List(int? pageIndex, string sortBy)
         {
             if (!pageIndex.HasValue)
                 pageIndex = 1;

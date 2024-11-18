@@ -1,0 +1,23 @@
+﻿@model Outil
+@{
+    ViewData["Title"] = "OutilForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @(Model.Id == 0 ?
+        "Ajouter un outil" : "Modifier un outil")
+</h2>
+@using (Html.BeginForm("Save", "Outils"))
+{
+    <div class="form-groupmb-3">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary">Sauvegarde</button>
+}   
