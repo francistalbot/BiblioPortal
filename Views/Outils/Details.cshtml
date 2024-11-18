@@ -1,3 +1,21 @@
 ﻿@model Outil
 
 <h2>@Model.Name</h2>
+<h5>Locations : </h5>
+@if (Model.Locations == null || !Model.Locations.Any())
+{
+    <text>Aucun client a loué cet outils</text>
+}
+else
+{
+    <table class="table table-striped table-bordered">
+        @foreach (var location in Model.Locations)
+        {
+            <tr>
+                <td>@location.ClientId</td>
+                <td>@location.Date</td>
+                <td>@Html.ActionLink(location.Client.Name, "Details", "Clients", new { id = location.Client.Id }, null)  </td
+            </tr>
+        }
+    </table>
+}

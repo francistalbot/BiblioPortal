@@ -10,6 +10,11 @@ namespace BiblioPortal.Controllers
         {
             _context = context;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
         public IActionResult Index()
         {
             var clients = _context.Clients;

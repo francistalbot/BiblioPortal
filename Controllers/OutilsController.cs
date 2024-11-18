@@ -2,6 +2,7 @@
 using BiblioPortal.Models;
 using BiblioPortal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiblioPortal.Controllers
 {
@@ -23,9 +24,16 @@ namespace BiblioPortal.Controllers
             return View(outils);
         }
 
-        public ViewResult Details(int id)
+        public ActionResult Details(int id)
         {
-            var outil = _context.Outils.SingleOrDefault(c => c.Id == id);
+            var outil = _context.Outils
+                .Include(o => o.Locations)      //Inclut les Location en relations
+                .ThenInclude(l => l.Client)     //Charge aussi les Client en relations avec les Locations
+                .SingleOrDefault(c => c.Id == id);
+            if (outil == null)
+            {
+                return NotFound(); // Renvoie une erreur 404 si l'outil n'existe pas
+            }
             return View(outil);
         }
         //GET: Outils/Random
