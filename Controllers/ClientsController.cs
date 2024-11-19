@@ -35,8 +35,18 @@ namespace BiblioPortal.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Client client) 
         { 
+            if(!ModelState.IsValid)
+            {
+                var viewModel = new ClientFormViewModel
+                {
+                    MembershipTypes = _context.MembershipTypes,
+                    Client = client
+                };
+                return View("ClientForm", viewModel);
+            }
             if (client.Id == 0) 
                 _context.Clients.Add(client);
             else
@@ -71,8 +81,6 @@ namespace BiblioPortal.Controllers
         {
             var client = _context.Clients
                 .Include(c => c.MembershipType)     //Inclut les MembershipType en Relation
-                .Include(c => c.Locations)          //Inclut les Locations en Relation
-                .ThenInclude(c => c.Outil)          //Ensuit inclut les outils en relation avec les Locations
                 .SingleOrDefault(c => c.Id == id);
 
             if (client == null)

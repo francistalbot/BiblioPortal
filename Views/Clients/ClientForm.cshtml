@@ -12,6 +12,7 @@
     <div class="form-groupmb-3">
         @Html.LabelFor(m => m.Client.Name)
         @Html.TextBoxFor(m => m.Client.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Client.Name, "", new { @class = "text-danger"})
     </div>
     <div class="form-group mb-3">
         @Html.LabelFor(m => m.Client.DateOfBirth)
@@ -23,12 +24,14 @@
     </div>
     <div class="form-group mb-3">
        @Html.LabelFor(m => m.Client.MembershipTypeId)
-       @Html.DropDownListFor(m => m.Client.MembershipTypeId, new SelectList(Model.MembershipTypes,"Id","Name"),"Choisir le type d'abonnement ", new { @class = "form-control mb-3" })
+        @Html.DropDownListFor(m => m.Client.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Choisir le type d'abonnement ", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Client.MembershipTypeId, "Choisissez un type d'abonnement", new { @class = "text-danger" })
     </div>
     <div class="form-group form-check mb-3">
         @Html.CheckBoxFor(m => m.Client.IsSubscribeToNewsletter, new { @class = "form-check-input" })
         @Html.LabelFor(m => m.Client.IsSubscribeToNewsletter)
     </div>
     @Html.HiddenFor(m => m.Client.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Sauvegarde</button>
 }   

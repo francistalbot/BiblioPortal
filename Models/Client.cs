@@ -10,7 +10,7 @@ namespace BiblioPortal.Models
         }
         public int Id { get; set; }
         
-        [Required]
+        [Required(ErrorMessage = "Entrer le nom du client")]
         [StringLength(255)]
         [Display(Name = "Nom")]
         public string? Name { get; set; }
@@ -27,7 +27,8 @@ namespace BiblioPortal.Models
         [Display(Name = "Newsletter")]
         public bool IsSubscribeToNewsletter {  get; set; }
         public MembershipType MembershipType { get; set; }
-        
+
+        [Required]
         [Display(Name = "Type d'abonnement")]
         public byte MembershipTypeId { get; set; }
        
