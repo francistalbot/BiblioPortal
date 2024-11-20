@@ -58,6 +58,7 @@ namespace BiblioPortal.Controllers
                 clientInDb.Email = client.Email;
                 clientInDb.IsSubscribeToNewsletter
                     = client.IsSubscribeToNewsletter;
+                clientInDb.MembershipTypeId = client.MembershipTypeId;
 
 
             }

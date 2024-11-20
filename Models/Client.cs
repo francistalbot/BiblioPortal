@@ -26,7 +26,7 @@ namespace BiblioPortal.Models
         
         [Display(Name = "Newsletter")]
         public bool IsSubscribeToNewsletter {  get; set; }
-        public MembershipType MembershipType { get; set; }
+        public MembershipType? MembershipType { get; set; }
 
         [Required]
         [Display(Name = "Type d'abonnement")]
