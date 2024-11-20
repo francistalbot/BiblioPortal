@@ -35,8 +35,10 @@
                             render: function (data, type, client) {
                                 return `<a href="/clients/details/${client.id}">${client.name}</a>`;
                             }
-                        },       // Correspond à la propriété "Nom"
-                        { data: 'email' },     // Correspond à la propriété "Email"
+                        },       
+                        {
+                            data: 'membershipType.name'
+                        },     
                         {
                             data: null,
                             render: function (data, type, client) {

@@ -1,5 +1,6 @@
 ﻿using BiblioPortal.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -21,7 +22,8 @@ namespace BiblioPortal.Controllers.Api
         [HttpGet]
         public IActionResult GetClient()
         {
-            var clients = _context.Clients.ToList();
+            var clients = _context.Clients
+                .Include(c => c.MembershipType).ToList(); 
             return Ok(clients);
         }
 
