@@ -7,22 +7,58 @@
 <h2>Clients</h2>
 @Html.ActionLink("Ajouter un client", "New", "Clients", "" ,
     new { @class = "btn btn-primary mb-3" })
-<table class="table table-striped table-bordered">
+<table id="clients" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>#</th>
             <th>Nom</th>
             <th>Type Abonnement</th>
+            <th>delete</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var client in Model)
+
+        <tbody>
+       @foreach (var client in Model)
         {
-            <tr>
+            <tr id="client-@client.Id">
                 <td>@client.Id</td>
                 <td>@Html.ActionLink(client.Name, "Details", "Clients", new { id = client.Id }, null)  </td>
                 <td>@client.MembershipType.Name</td>
+                <td>
+                    <button onclick="deleteClient(@client.Id)" class="btn btn-link js-delete">delete</button>
+
+            </td>
             </tr>
         }
-    </tbody>
+        </tbody>
 </table>
+@section scripts
+{
+
+    <script>
+
+     // Pour Suprimé un client par la table généré avec le Model.client
+     
+     async function deleteClient(clientId) {
+            if (confirm("Voulez-vous vraiment supprimer ce client ?")) {
+                try {
+                    const response = await fetch(`/api/clients/${clientId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        // Supprime la ligne du tableau
+                        document.getElementById(`client-${clientId}`).remove();
+                        alert("Client supprimé avec succès !");
+                    } else {
+                        alert("Erreur lors de la suppression du client.");
+                    }
+                } catch (error) {
+                    console.error("Erreur :", error);
+                    alert("Impossible de supprimer le client.");
+                }
+            }
+        }
+        </script>
+
+}
