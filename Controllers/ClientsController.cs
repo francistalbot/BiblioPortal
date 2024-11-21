@@ -1,10 +1,12 @@
 ﻿using BiblioPortal.Models;
 using BiblioPortal.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BiblioPortal.Controllers
 {
+    [Authorize]
     public class ClientsController : Controller
     {
         private BiblioDbContext _context;

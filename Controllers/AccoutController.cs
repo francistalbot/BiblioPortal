@@ -1,10 +1,12 @@
 ﻿using BiblioPortal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiblioPortal.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -17,9 +19,11 @@ namespace BiblioPortal.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login() => View();
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(string email, string password)
         {
             var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
@@ -33,25 +37,30 @@ namespace BiblioPortal.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register() => View();
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(string email, string password)
         {
-            var user = new ApplicationUser { UserName = email, Email = email, };
-           
-            var result = await _userManager.CreateAsync(user, password); 
-            if (result.Succeeded)
-            {
-                	await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+            if(ModelState.IsValid) { 
+                var user = new ApplicationUser { UserName = email, Email = email, };
+                var result = await _userManager.CreateAsync(user, password); 
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
             }
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(string.Empty, error.Description);
             return View();
+            
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
