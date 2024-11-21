@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 namespace BiblioPortal.Models
 {
-    public class BiblioDbContext : IdentityDbContext
+    public class BiblioDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Outil> Outils { get; set; }
         public DbSet<Client> Clients { get; set; }
