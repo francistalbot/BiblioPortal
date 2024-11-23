@@ -11,8 +11,18 @@ Ce projet est principalement dans le but de me pratiqué à travers mes études 
 - Javascript
 - CSS
 - SQL Server
-
+  
+## Étapes Complété
+- Création d'une db "CodeFirst" avec Entity-Framework
+- Inclusion de relation many-to-many dans les entités
+- Formulaire avec erreur de validation
+- Création d'une Api Client
+- Datatable complexe développé avec l'Api
+- Authenification et Authorization
+- Deploiement
+  
 ## Prochaines étapes
 - Développé l'api pour les Outils
+- Performance optimisation
 - Inclure 2FA
 - Overall improvements and clean up
