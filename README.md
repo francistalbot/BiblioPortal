@@ -1,4 +1,4 @@
-# Reminder
+# Biblio Portal
 ## Introduction
 Appliction de Gestion d'une Bibliothèque
 
@@ -10,7 +10,9 @@ Ce projet est principalement dans le but de me pratiqué à travers mes études 
 - Javascript
 - CSS
 - SQL Server
-  
+
+## Demo en ligne
+Décrouvrez la version publiée ici : [https://a7j6htgrfe7u6y4r3.ftalbot.com/](https://a7j6htgrfe7u6y4r3.ftalbot.com/)
 ## Étapes Complété
 - Création d'une db "CodeFirst" avec Entity-Framework
 - Inclusion de relation many-to-many dans les entités
