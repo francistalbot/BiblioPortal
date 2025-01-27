@@ -23,7 +23,7 @@ Décrouvrez la version publiée ici : [https://a7j6htgrfe7u6y4r3.ftalbot.com/](h
 - Deploiement
   
 ## Prochaines étapes
-- Développé l'api pour les Outils
+- Développé l'api pour les Outilsdfgdfgdfg
 - Performance optimisation
 - Inclure 2FA
 - Overall improvements and clean up
