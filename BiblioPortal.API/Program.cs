@@ -27,6 +27,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapOutilEndpoints();
+app.MapGroup("/api/outil").MapOutilEndpoints();
 
 app.Run();

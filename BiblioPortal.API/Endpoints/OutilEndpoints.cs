@@ -6,20 +6,20 @@ namespace BiblioPortal.API.Endpoints
 {
     public static class OutilEndpoints
     {
-        public static WebApplication MapOutilEndpoints(this WebApplication app)
+        public static RouteGroupBuilder MapOutilEndpoints(this RouteGroupBuilder group)
         {
 
 
-            app.MapGet("/api/outil", async (BiblioDbContext context) =>
+            group.MapGet("/", async (BiblioDbContext context) =>
                await context.Outils.ToListAsync());
 
-            app.MapGet("/api/outil/{id:int}", async (BiblioDbContext context, int id) =>
+            group.MapGet("/{id:int}", async (BiblioDbContext context, int id) =>
             {
                 var outil = await context.Outils.FindAsync(id);
                 return outil is not null ? Results.Ok(outil) : Results.NotFound();
             }); 
 
-            return app;
+            return group;
         }
     }
 }

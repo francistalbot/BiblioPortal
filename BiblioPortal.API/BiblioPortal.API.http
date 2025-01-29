@@ -1,6 +1,6 @@
 @BiblioPortal.API_HostAddress = http://localhost:5147
 
-GET {{BiblioPortal.API_HostAddress}}/weatherforecast/
+GET {{BiblioPortal.API_HostAddress}}/api/outil
 Accept: application/json
 
 ###
