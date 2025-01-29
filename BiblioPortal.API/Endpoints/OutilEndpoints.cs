@@ -11,7 +11,7 @@ namespace BiblioPortal.API.Endpoints
 
 
             group.MapGet("/", async (BiblioDbContext context) =>
-               await context.Outils.ToListAsync());
+               await context.Outils.ToListAsync()).RequireAuthorization();
 
             group.MapGet("/{id:int}", async (BiblioDbContext context, int id) =>
             {
