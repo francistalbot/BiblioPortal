@@ -1,3 +1,4 @@
+using BiblioPortal.API.Endpoints;
 using BiblioPortal.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,5 +26,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGet("/api/outil", async (BiblioDbContext context) =>
+               await context.Outils.ToListAsync());
 
 app.Run();
