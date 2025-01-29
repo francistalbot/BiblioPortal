@@ -27,7 +27,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGet("/api/outil", async (BiblioDbContext context) =>
-               await context.Outils.ToListAsync());
+app.MapOutilEndpoints();
 
 app.Run();
