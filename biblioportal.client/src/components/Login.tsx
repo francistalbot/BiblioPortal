@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { login } from "../services/AuthServices";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -49,7 +50,25 @@ const PrimaryBtn = styled.button`
         background: #4096ff;
     }
 `;
+
+const handleLogin = async () => {
+
+
+    const testUserData = {
+        "email": "string@string",
+        "password": "String!1",
+        "twoFactorCode": "string",
+        "twoFactorRecoveryCode": "string"
+    };
+
+
+    try {
+        const response = await login(testUserData);
+        console.log(`Response login ${JSON.stringify(response.data)}`);
+    } catch (err) { }
+}
 function Login() {
+    handleLogin();
   return (
       <LoginContainer>
           <FormWrapper>
