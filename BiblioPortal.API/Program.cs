@@ -6,6 +6,19 @@ using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Ajouter CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173") // Remplacez par l'URL de votre frontend
+                  .AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowCredentials(); // Si vous utilisez des cookies/tokens d'authentification
+        });
+});
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddDbContext<BiblioDbContext>(options => options.UseSqlServer(builder.Configuration["ConnectionStrings:BiblioDbContextConnection"]));
@@ -28,6 +41,10 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
     .AddEntityFrameworkStores<BiblioDbContext>();
 
 var app = builder.Build();
+
+
+// Utiliser la politique CORS avant d'ajouter les endpoints
+app.UseCors("AllowReactApp");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
