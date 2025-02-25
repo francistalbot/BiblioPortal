@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { login } from "../services/AuthServices";
+import { useFormik } from 'formik';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -51,36 +52,43 @@ const PrimaryBtn = styled.button`
     }
 `;
 
-const handleLogin = async () => {
 
-
-    const testUserData = {
-        "email": "string@string",
-        "password": "String!1",
-        "twoFactorCode": "string",
-        "twoFactorRecoveryCode": "string"
-    };
-
-
-    try {
-        const response = await login(testUserData);
-        console.log(`Response login ${JSON.stringify(response.data)}`);
-    } catch (err) { }
-}
 function Login() {
-    handleLogin();
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: ""
+        },
+        onSubmit: async (values) => {
+            try {
+                const loginData = {
+                    ...values,
+                    twoFactorCode: "string",
+                    twoFactorRecoveryCode: "string"
+                };
+                const response = await login(loginData);
+                console.log(`Response login ${JSON.stringify(response.data)}`);
+            } catch { ; }
+        }
+    });
   return (
       <LoginContainer>
           <FormWrapper>
               <LoginTitle>
                   <h2>Login</h2>
               </LoginTitle>
-              <form>
-                  <label htmlFor="name">Username</label>
-                  <FormInput name="name" type="text" placeholder="Enter your username"/>
-                  <label htmlFor="password">Password</label>
-                  <FormInput name="password" type="text" placeholder="Enter your password" />
-                  <PrimaryBtn type="submit">Register</PrimaryBtn>
+              <form onSubmit={formik.handleSubmit}>
+                <label htmlFor="email">Email</label>
+                  <FormInput name="email" type="email" placeholder="Enter your email"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email} />
+                <label htmlFor="password">Password</label>
+                  <FormInput name="password" type="password" placeholder="Enter your password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}/>
+                <PrimaryBtn type="submit">Login</PrimaryBtn>
               </form>
           </FormWrapper>
       </LoginContainer>
