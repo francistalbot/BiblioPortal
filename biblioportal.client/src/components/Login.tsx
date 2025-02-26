@@ -52,14 +52,18 @@ const PrimaryBtn = styled.button`
     }
 `;
 
-
 function Login() {
+    interface LoginValues {
+            email: string;
+            password: string;
+        }
     const formik = useFormik({
+    
         initialValues: {
             email: "",
             password: ""
         },
-        onSubmit: async (values) => {
+        onSubmit: async (values: LoginValues) => {
             try {
                 const loginData = {
                     ...values,
@@ -68,7 +72,7 @@ function Login() {
                 };
                 const response = await login(loginData);
                 console.log(`Response login ${JSON.stringify(response.data)}`);
-            } catch { ; }
+            } catch (error) { ; }
         }
     });
   return (
@@ -88,7 +92,9 @@ function Login() {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}/>
-                <PrimaryBtn type="submit">Login</PrimaryBtn>
+                  <PrimaryBtn type="submit" disabled={formik.isSubmitting}>
+                      {formik.isSubmitting ? 'Connexion...' : 'Se connecter'}
+                  </PrimaryBtn>
               </form>
           </FormWrapper>
       </LoginContainer>
