@@ -4,11 +4,24 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5147"; 
 
+// Set up Axios instance
 const axiosInstance = axios.create({
     withCredentials: true,
     baseURL: API_URL,
     headers: { "Content-Type": "application/json" },
 });
+
+// Add a request interceptor to attach the token to every request
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers["Authorization"] = `Bearer ${token}`; // Attach token to headers
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
+);
 
 //POST Register user
 interface RegisterData {
@@ -16,7 +29,11 @@ interface RegisterData {
     password: string;
 }
 const register = async (registerData: RegisterData) => {
-    const response = await axiosInstance.post("/register", registerData);
+    const response = await axiosInstance.post("/register", registerData, {
+        headers: {
+            "Content-Type": "multipart/form-data", // Override the Content-Type header
+        },
+    });
     return response.data;
 };
 
