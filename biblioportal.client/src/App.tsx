@@ -2,6 +2,7 @@ import './App.css'
 import Header from './components/Header';
 import styled from "styled-components";
 import Registration from './components/Registration';
+import Login from './components/Login';
 
 const MainStyled = styled.main`
 	min-height:85vh;
@@ -15,7 +16,7 @@ export function App() {
 		<>
 			<Header />
 			<MainStyled>
-				<Registration/>
+				<Login />
 			</MainStyled>
 		</>
 	);
