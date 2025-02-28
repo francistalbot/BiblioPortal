@@ -7,3 +7,9 @@ export const store = configureStore({
         user: userReducer,
     },
 });
+
+// Définition du type RootState
+export type RootState = ReturnType<typeof store.getState>;
+
+// Définition du type AppDispatch
+export type AppDispatch = typeof store.dispatch;

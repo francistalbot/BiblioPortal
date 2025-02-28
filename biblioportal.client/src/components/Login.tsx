@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, setLoading, setError } from "../redux/userSlice";
+import { RootState } from '../redux/store';
 import { login } from "../services/AuthServices";
 import { useFormik } from 'formik';
 
@@ -50,9 +53,18 @@ const PrimaryBtn = styled.button`
     &:hover {
         background: #4096ff;
     }
+    &:disabled {
+        background: lightgrey;
+        cursor: not-allowed
+    }
 `;
-
+const ErrorText = styled.div`
+  color: red;
+  margin-bottom: 8px;
+    `;
 function Login() {
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state: RootState) => state.user);
     interface LoginValues {
             email: string;
             password: string;
@@ -63,7 +75,9 @@ function Login() {
             email: "",
             password: ""
         },
-        onSubmit: async (values: LoginValues) => {
+        onSubmit: async (values: LoginValues, { setSubmitting, setStatus }) => {
+            dispatch(setError(null));
+            dispatch(setLoading(true));
             try {
                 const loginData = {
                     ...values,
@@ -71,8 +85,23 @@ function Login() {
                     twoFactorRecoveryCode: "string"
                 };
                 const response = await login(loginData);
-                console.log(`Response login ${JSON.stringify(response.data)}`);
-            } catch (error) { ; }
+                console.log(`Response login ${JSON.stringify(response.state)}`);
+              dispatch(
+                    setUser({
+                        user: {
+                            email: values.email,
+                        },
+                        token: response.accessToken,
+                    })
+                ); 
+            } catch (err: any) {
+                const errorMessage = err.response?.data?.message || "Failed to login!";
+                dispatch(setError(errorMessage));
+                setStatus(errorMessage );
+            } finally {
+                dispatch(setLoading(false));
+                setSubmitting(false);
+            }
         }
     });
   return (
@@ -82,6 +111,7 @@ function Login() {
                   <h2>Login</h2>
               </LoginTitle>
               <form onSubmit={formik.handleSubmit}>
+                  {formik.status && <ErrorText>{formik.status}</ErrorText>}
                 <label htmlFor="email">Email</label>
                   <FormInput name="email" type="email" placeholder="Enter your email"
                       onChange={formik.handleChange}
@@ -92,8 +122,8 @@ function Login() {
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik.values.password}/>
-                  <PrimaryBtn type="submit" disabled={formik.isSubmitting}>
-                      {formik.isSubmitting ? 'Connexion...' : 'Se connecter'}
+                  <PrimaryBtn type="submit" disabled={formik.isSubmitting || loading} >
+                      {formik.isSubmitting || loading ? 'Connexion...' : 'Se connecter'}
                   </PrimaryBtn>
               </form>
           </FormWrapper>
