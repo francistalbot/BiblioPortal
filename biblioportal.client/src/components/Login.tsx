@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, setLoading, setError } from "../redux/userSlice";
+import { setUser, setToken, setLoading, setError } from "../redux/userSlice";
 import { RootState } from '../redux/store';
-import { login } from "../services/AuthServices";
+import { login, getManageInfo } from "../services/AuthServices";
 import { useFormik } from 'formik';
 
 const LoginContainer = styled.div`
@@ -84,14 +84,23 @@ function Login() {
                     twoFactorCode: "string",
                     twoFactorRecoveryCode: "string"
                 };
-                const response = await login(loginData);
-                console.log(`Response login ${JSON.stringify(response.state)}`);
+                const loginResponse = await login(loginData);
+                console.log(`Response login ${loginResponse.state}POURT!`);
+                const token = loginResponse.accessToken;
+
+                dispatch(
+                    setToken({
+                        token: token,
+                    })
+                ); 
+                const userInfoResponse = await getManageInfo();
+
               dispatch(
                     setUser({
                         user: {
-                            email: values.email,
+                            email: userInfoResponse.email,
+                            isEmailConfirmed: userInfoResponse.isEmailConfirmed,
                         },
-                        token: response.accessToken,
                     })
                 ); 
             } catch (err: any) {
