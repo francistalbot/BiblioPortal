@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { RootState } from "../redux/store";
 
 const NavigationList = styled.ul`
 	
@@ -44,6 +46,7 @@ const NavBar = styled.nav`
   background-color:rgb(213, 235, 255);
 `;
 export function Header() {
+	const { user } = useSelector((state: RootState) => state.user);
 	return (
 		<header>
 			<NavBar>
@@ -71,8 +74,17 @@ export function Header() {
 					Biblio
 				</LogoContainer>
 				<NavigationList>
-					  <li><NavigationLink href="#">Login</NavigationLink></li>
-					  <li><NavigationLink href="#">Register</NavigationLink></li>
+					{!user ? (
+						<>
+							<li><NavigationLink href="#">Login</NavigationLink></li>
+							<li><NavigationLink href="#">Register</NavigationLink></li>
+						</>
+					) : (
+						<>
+							<li><NavigationLink href="#">{user.email}</NavigationLink></li>
+							<li><NavigationLink href="#">Logout</NavigationLink></li>
+						</>
+					)}
 				</NavigationList>
 			</NavBar>
 		</header>
