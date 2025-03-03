@@ -8,18 +8,15 @@ import Login from './components/Login';
 export function App() {
 
 	return (
-		<>
-			<Router>
+		<Router>
+			<LayoutComponent>
 				<Routes>
 					<Route index element={<Login />} />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Registration />} />
 				</Routes>
-			</Router>
-			<LayoutComponent>
-				<Login />
 			</LayoutComponent>
-		</>
+		</Router>
 	);
 }
 export default App
