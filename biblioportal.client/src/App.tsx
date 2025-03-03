@@ -9,6 +9,13 @@ export function App() {
 
 	return (
 		<>
+			<Router>
+				<Routes>
+					<Route index element={} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Registration />} />
+				</Routes>
+			</Router>
 			<LayoutComponent>
 				<Login />
 			</LayoutComponent>
