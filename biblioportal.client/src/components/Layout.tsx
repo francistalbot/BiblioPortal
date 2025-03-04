@@ -1,7 +1,9 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/userSlice";
 
 const MainStyled = styled.main`
 	min-height:85vh;
@@ -57,11 +59,33 @@ interface LayoutProps {
 
 const LayoutComponent = ({ children }: LayoutProps) => {
 	const { user } = useSelector((state: RootState) => state.user);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const handleLogin = () => {
+		navigate("/login");
+	};
+
+	const handleRegister = () => {
+		navigate("/register");
+	};
+
+	const handleLogout = () => {
+		dispatch(logout());
+		navigate(0);
+	};
+
+	const goToHome = () => {
+		navigate("/");
+	};
+
+
+
 	return (
 		<>
 			<header>
 				<NavBar>
-					<LogoContainer>
+					<LogoContainer onClick={goToHome}>
 						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
 							  viewBox="0 0 511.997 511.997" >
 							  <circle style={{ fill: "#00447D" }} cx="255.998" cy="255.998" r="255.998" />
@@ -87,13 +111,13 @@ const LayoutComponent = ({ children }: LayoutProps) => {
 					<NavigationList>
 						{!user ? (
 							<>
-								<li><NavigationLink href="#">Login</NavigationLink></li>
-								<li><NavigationLink href="#">Register</NavigationLink></li>
+								<li><NavigationLink href="#" onClick={handleLogin}>Login</NavigationLink></li>
+								<li><NavigationLink href="#" onClick={handleRegister}>Register</NavigationLink></li>
 							</>
 						) : (
 							<>
-								<li><NavigationLink href="#">{user.email}</NavigationLink></li>
-								<li><NavigationLink href="#">Logout</NavigationLink></li>
+								<li><NavigationLink href="#" >{user.email}</NavigationLink></li>
+								<li><NavigationLink key="logout" onClick={handleLogout}>Logout</NavigationLink></li>
 							</>
 						)}
 					</NavigationList>

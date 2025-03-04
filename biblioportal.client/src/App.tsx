@@ -11,7 +11,7 @@ export function App() {
 		<Router>
 			<LayoutComponent>
 				<Routes>
-					<Route index element={<Login />} />
+					<Route index />
 					<Route path="/login" element={<Login />} />
 					<Route path="/register" element={<Registration />} />
 				</Routes>
